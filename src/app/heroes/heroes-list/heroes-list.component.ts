@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { IHeroes } from '../heroes';
 @Component({
   selector: 'app-heroes-list',
   standalone: true,
@@ -19,7 +20,7 @@ export class HeroesListComponent {
   }
 
 
-  heroes:any[]= [
+  heroes:IHeroes[]= [
     {
       imagen: "https://dragonball-api.com/characters/goku_normal.webp",
       nombre: "Goku",
