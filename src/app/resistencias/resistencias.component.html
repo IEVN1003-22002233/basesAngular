@@ -1,0 +1,182 @@
+<div class="container my-4">
+  <h2 class="mb-4 text-center">Calculadora de Resistencias</h2>
+
+  <div class="row mb-4">
+    <div class="col-md-6 mb-3">
+      <h3>Banda 1</h3>
+      <div *ngFor="let color of colores" class="form-check form-check-inline">
+        <input
+          class="form-check-input"
+          type="radio"
+          name="banda1"
+          [value]="color"
+          [(ngModel)]="banda1"
+          id="banda1-{{color}}"
+        />
+        <label class="form-check-label" for="banda1-{{color}}">
+          <span
+            class="d-inline-block rounded border border-dark fw-bold text-center"
+            style="width: 130px; height: 40px; line-height: 40px; font-size: 1.3rem;"
+            [style.background-color]="colorHex(color)"
+          >
+            {{valorColor(color)}}
+          </span>
+        </label>
+      </div>
+    </div>
+
+    <div class="col-md-6 mb-3">
+      <h3>Banda 2</h3>
+      <div *ngFor="let color of colores" class="form-check form-check-inline">
+        <input
+          class="form-check-input"
+          type="radio"
+          name="banda2"
+          [value]="color"
+          [(ngModel)]="banda2"
+          id="banda2-{{color}}"
+        />
+        <label class="form-check-label" for="banda2-{{color}}">
+          <span
+            class="d-inline-block rounded border border-dark fw-bold text-center"
+            style="width: 130px; height: 40px; line-height: 40px; font-size: 1.3rem;"
+            [style.background-color]="colorHex(color)"
+          >
+            {{valorColor(color)}}
+          </span>
+        </label>
+      </div>
+    </div>
+  </div>
+
+  <div class="row mb-4">
+    <div class="col-md-6 mb-3">
+      <h3>Multiplicador</h3>
+      <div *ngFor="let color of colores" class="form-check form-check-inline">
+        <input
+          class="form-check-input"
+          type="radio"
+          name="mult"
+          [value]="color"
+          [(ngModel)]="mult"
+          id="mult-{{color}}"
+        />
+        <label class="form-check-label" for="mult-{{color}}">
+          <span
+            class="d-inline-block rounded border border-dark fw-bold text-center"
+            style="width: 130px; height: 40px; line-height: 40px; font-size: 1.3rem;"
+            [style.background-color]="colorHex(color)"
+          >
+            {{valorMult(color)}}
+          </span>
+        </label>
+      </div>
+    </div>
+
+    <div class="col-md-6 mb-3">
+      <h3>Tolerancia</h3>
+      <div class="form-check">
+        <input
+          class="form-check-input"
+          type="radio"
+          name="tolerancia"
+          value="Dorado"
+          [(ngModel)]="tolerancia"
+          id="tol-dorado"
+        />
+        <label class="form-check-label" for="tol-dorado">
+          <span
+            class="d-inline-block rounded border border-dark fw-bold text-center"
+            style="width: 130px; height: 40px; line-height: 40px; font-size: 1.3rem;"
+            [style.background-color]="colorHex('Dorado')"
+          >
+            5%
+          </span>
+        </label>
+      </div>
+      <div class="form-check mt-2">
+        <input
+          class="form-check-input"
+          type="radio"
+          name="tolerancia"
+          value="Plata"
+          [(ngModel)]="tolerancia"
+          id="tol-plata"
+        />
+        <label class="form-check-label" for="tol-plata">
+          <span
+            class="d-inline-block rounded border border-dark fw-bold text-center"
+            style="width: 130px; height: 40px; line-height: 40px; font-size: 1.3rem;"
+            [style.background-color]="colorHex('Plata')"
+          >
+            10%
+          </span>
+        </label>
+      </div>
+    </div>
+  </div>
+
+  <div class="mb-4 text-center">
+    <button class="btn btn-primary btn-lg" (click)="calcular()">Calcular</button>
+  </div>
+
+  <div *ngIf="res" class="card p-3">
+    <h3 class="mb-3">Resultados</h3>
+    <table class="table table-bordered text-center align-middle">
+      <thead class="table-light">
+        <tr>
+          <th>Banda 1</th>
+          <th>Banda 2</th>
+          <th>Multiplicador</th>
+          <th>Tolerancia</th>
+          <th>Valor</th>
+          <th>Valor mínimo</th>
+          <th>Valor máximo</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>
+            <span
+              class="d-inline-block rounded border border-dark fw-bold text-center"
+              style="width: 130px; height: 40px; line-height: 40px; font-size: 1.3rem;"
+              [style.background-color]="colorHex(banda1)"
+            >
+              {{banda1}}
+            </span>
+          </td>
+          <td>
+            <span
+              class="d-inline-block rounded border border-dark fw-bold text-center"
+              style="width: 130px; height: 40px; line-height: 40px; font-size: 1.3rem;"
+              [style.background-color]="colorHex(banda2)"
+            >
+              {{banda2}}
+            </span>
+          </td>
+          <td>
+            <span
+              class="d-inline-block rounded border border-dark fw-bold text-center"
+              style="width: 130px; height: 40px; line-height: 40px; font-size: 1.3rem;"
+              [style.background-color]="colorHex(mult)"
+            >
+              {{mult}}
+            </span>
+          </td>
+          <td>
+            <span
+              class="d-inline-block rounded border border-dark fw-bold text-center"
+              style="width: 130px; height: 40px; line-height: 40px; font-size: 1.3rem;"
+              [style.background-color]="colorHex(tolerancia)"
+            >
+              {{tolerancia === 'Dorado' ? '5%' : (tolerancia === 'Plata' ? '10%' : '')}}
+            </span>
+          </td>
+          <td>{{res.val}}</td>
+          <td>{{res.min}}</td>
+          <td>{{res.max}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
